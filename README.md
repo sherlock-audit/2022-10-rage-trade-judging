@@ -3,7 +3,7 @@
 Source: https://github.com/sherlock-audit/2022-10-rage-trade-judging/issues/79 
 
 ## Found by 
-cccz, Nyx, simon135, clems4ever, GimelSec
+simon135, cccz, Nyx, GimelSec, clems4ever
 
 ## Summary
 
@@ -69,7 +69,7 @@ Replace `from` parameter by `msg.sender`.
 Source: https://github.com/sherlock-audit/2022-10-rage-trade-judging/issues/62 
 
 ## Found by 
-0x52
+0x52, clems4ever
 
 ## Summary
 
@@ -137,7 +137,7 @@ Small change to reverse the logic and make it correct:
 Source: https://github.com/sherlock-audit/2022-10-rage-trade-judging/issues/67 
 
 ## Found by 
-0x52
+ctf\_sec, 0x52
 
 ## Summary
 
@@ -373,7 +373,7 @@ Correct MAX_BPS:
 Source: https://github.com/sherlock-audit/2022-10-rage-trade-judging/issues/37 
 
 ## Found by 
-ctf\_sec, cccz, \_\_141345\_\_, tives, peanuts, joestakey, clems4ever, rvierdiiev, GimelSec, 0x52
+rvierdiiev, tives, peanuts, joestakey, cccz, ctf\_sec, \_\_141345\_\_, 0x52, GimelSec, clems4ever
 
 ## Summary
 
