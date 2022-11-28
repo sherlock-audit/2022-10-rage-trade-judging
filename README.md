@@ -3,7 +3,7 @@
 Source: https://github.com/sherlock-audit/2022-10-rage-trade-judging/issues/79 
 
 ## Found by 
-simon135, cccz, Nyx, GimelSec, clems4ever
+Nyx, simon135, GimelSec, cccz, clems4ever
 
 ## Summary
 
@@ -64,12 +64,24 @@ Replace `from` parameter by `msg.sender`.
         dnGmxJuniorVault.redeem(sharesAmount, address(this), msg.sender);
 ```
 
+## Discussion
+
+**0xDosa**
+
+Fix PR: https://github.com/RageTrade/delta-neutral-gmx-vaults/pull/45
+
+**0x00052**
+
+Fix looks good
+
+
+
 # Issue H-2: DnGmxJuniorVaultManager#_rebalanceBorrow logic is flawed and could result in vault liquidation 
 
 Source: https://github.com/sherlock-audit/2022-10-rage-trade-judging/issues/62 
 
 ## Found by 
-0x52, clems4ever
+clems4ever, 0x52
 
 ## Summary
 
@@ -132,12 +144,24 @@ Small change to reverse the logic and make it correct:
                 amounts[0] = ethAssetAmount;
             }
 
+## Discussion
+
+**0xDosa**
+
+Fix PR: https://github.com/RageTrade/delta-neutral-gmx-vaults/pull/34
+
+**0x00052**
+
+Fix looks good. Inequality was changed to match recommendation 
+
+
+
 # Issue M-1: DnGmxJuniorVaultManager#harvestFees can push junior vault borrowedUSDC above borrow cap and DOS vault 
 
 Source: https://github.com/sherlock-audit/2022-10-rage-trade-judging/issues/67 
 
 ## Found by 
-ctf\_sec, 0x52
+0x52, ctf\_sec
 
 ## Summary
 
@@ -224,6 +248,14 @@ Check if borrowed exceeds borrow cap and return zero to avoid underflow:
 
 Typo. Only meant to mention #52 
 
+**0xDosa**
+
+Fix PR: https://github.com/RageTrade/delta-neutral-gmx-vaults/pull/33
+
+**0x00052**
+
+Fix looks good. Underflow protection added as recommended
+
 
 
 # Issue M-2: Wrong price calculation in DnGmxJuniorVaultManager.sol 
@@ -267,6 +299,14 @@ The suggested fix seems to be incorrect. Since we already are passing the value 
 
 Agreed, suggested fix is incorrect. It should only adjust for slippage
 
+**0xDosa**
+
+Fix PR: https://github.com/RageTrade/delta-neutral-gmx-vaults/pull/37
+
+**0x00052**
+
+Fix looks good. Value is now only adjusted to account for slippage
+
 
 
 # Issue M-3: WithdrawPeriphery#_convertToToken slippage control is broken for any token other than USDC 
@@ -274,7 +314,7 @@ Agreed, suggested fix is incorrect. It should only adjust for slippage
 Source: https://github.com/sherlock-audit/2022-10-rage-trade-judging/issues/55 
 
 ## Found by 
-0x52
+clems4ever, 0x52
 
 ## Summary
 
@@ -330,6 +370,14 @@ Agreed on the issue but the severity level should be medium since loss of funds 
 
 Downgrading to medium
 
+**0xDosa**
+
+Fix PR: https://github.com/RageTrade/delta-neutral-gmx-vaults/pull/38
+
+**0x00052**
+
+Fix looks good. Slippage is now adjusted to match token decimals
+
 
 
 # Issue M-4: WithdrawPeriphery uses incorrect value for MAX_BPS which will allow much higher slippage than intended 
@@ -368,12 +416,24 @@ Correct MAX_BPS:
     -   uint256 internal constant MAX_BPS = 1000;
     +   uint256 internal constant MAX_BPS = 10_000;
 
+## Discussion
+
+**0xDosa**
+
+Fix PR: https://github.com/RageTrade/delta-neutral-gmx-vaults/pull/40
+
+**0x00052**
+
+Fix looks good. Max_BPS has been updated
+
+
+
 # Issue M-5: Early depositors to DnGmxSeniorVault can manipulate exchange rates to steal funds from later depositors 
 
 Source: https://github.com/sherlock-audit/2022-10-rage-trade-judging/issues/37 
 
 ## Found by 
-rvierdiiev, tives, peanuts, joestakey, cccz, ctf\_sec, \_\_141345\_\_, 0x52, GimelSec, clems4ever
+tives, \_\_141345\_\_, GimelSec, cccz, clems4ever, ctf\_sec, peanuts, joestakey, rvierdiiev, 0x52
 
 ## Summary
 
@@ -530,6 +590,14 @@ Dividing with minimum price would maximize the asset/borrow amount and vice vers
 **0x00052**
 
 Good catch! You're right, I got that backwards. 
+
+**0xDosa**
+
+Fix PR: https://github.com/RageTrade/delta-neutral-gmx-vaults/pull/35
+
+**0x00052**
+
+Fix looks good. Debt/asset value are now properly minimized and slippage is applied in the proper direction for debt
 
 
 
